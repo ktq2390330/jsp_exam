@@ -1,0 +1,93 @@
+<!DOCTYPE html>
+<html lang="ja">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Webpage Layout</title>
+    <style>
+        body {
+            display: flex;
+            flex-direction: column;
+            justify-content: column;
+            align-items: center;
+            height: 100vh;
+            z-index: 1000;
+        }
+        .menu-btn {
+            display: none;
+            cursor: pointer;
+            position: fixed;
+            margin: 0 10px 10px 10px;
+            left: 0;
+            z-index: 1000;
+        }
+        .menu-icon {
+            width: 30px;
+            height: 2px;
+            background-color: black;
+            margin: 4px 0;
+        }
+        #menu {
+            position:fixed;
+            top: 60px;
+            left: 0;
+            padding: 10px;
+            width: 250px;
+            height: 100%;
+            box-sizing: border-box;
+            border: 1px solid black;
+            background-color: white;
+            border-color: black;
+            display: block;
+        }
+        #content {
+            padding: 10px;
+        }
+        @media (min-width: 768px) {
+            .menu-btn {
+                display: flex;
+                flex-direction: column;
+                justify-content: center;
+                align-items: flex-start;
+            }
+            #menu {
+                width: 200px;
+                display: none;
+            }
+            #content {
+                margin-left: 20px;
+            }
+        }
+    </style>
+</head>
+<body>
+    <div class="menu-btn">
+        <div class="menu-icon"></div>
+        <div class="menu-icon"></div>
+        <div class="menu-icon"></div>
+    </div>
+    <div id="menu">
+        <h2>メニュー</h2>
+        <ul>
+            <li>学生一覧</li>
+            <li>学生追加</li>
+            <li>学生更新</li>
+            <li>学生削除</li>
+        </ul>
+    </div>
+    <div id="content">
+        <h1>Topページ</h1>
+        <p>学生とコースの管理をするシステムです。<br>左のメニューから、各機能を選択してください。</p>
+    </div>
+    <script>
+        document.addEventListener('DOMContentLoaded', function () {
+            var menuBtn = document.querySelector('.menu-btn');
+            var menu = document.getElementById('menu');
+
+            menuBtn.addEventListener('click', function () {
+                menu.style.display = menu.style.display === 'block' ? 'none' : 'block';
+            });
+        });
+    </script>
+</body>
+</html>
