@@ -16,8 +16,9 @@ import javax.sql.DataSource;
 
 import tool.Page;
 
-@WebServlet(urlPatterns={"/controlDB/all"})
+@WebServlet(urlPatterns={"/all"})
 public class All extends HttpServlet{
+	private static final long serialVersionUID = 1L;
 	public void doGet(
 		HttpServletRequest request,HttpServletResponse response
 		)throws ServletException,IOException{
@@ -36,7 +37,7 @@ public class All extends HttpServlet{
 			while(rs.next()){
 				out.println(rs.getInt("id"));
 				out.println(":");
-				out.println("rs.getString(name)");
+				out.println(rs.getString("name"));
 				out.println(":");
 				out.println(rs.getString("course"));
 				out.println("<br>");
