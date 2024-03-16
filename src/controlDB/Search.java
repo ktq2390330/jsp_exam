@@ -2,19 +2,16 @@ package controlDB;
 
 import java.io.IOException;
 import java.io.PrintWriter;
-import java.sql.Connection;
-import java.sql.PreparedStatement;
-import java.sql.ResultSet;
+import java.util.List;
 
-import javax.naming.InitialContext;
 import javax.servlet.ServletException;
 import javax.servlet.annotation.WebServlet;
 import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
-import javax.sql.DataSource;
 
-import tool.Page;
+import bean.Register;
+import dao.RegisterDAO;
 
 @WebServlet(urlPatterns={"/search"})
 public class Search extends HttpServlet{
@@ -23,34 +20,16 @@ public class Search extends HttpServlet{
 			HttpServletRequest request,HttpServletResponse response
 			)throws ServletException,IOException{
 		PrintWriter out=response.getWriter();
-		Page.header(out);
 		try{
-			InitialContext ic=new InitialContext();
-			DataSource ds=(DataSource)ic.lookup(
-					"java:/comp/env/jdbc/kouka2");
-			Connection con=ds.getConnection();
+			RegisterDAO dao=new RegisterDAO();
+			List<Register> list=dao.search("");
 
-			String keyword=request.getParameter("keyword");
+			request.setAttribute("list",list);
 
-			PreparedStatement st=con.prepareStatement(
-					"select * from register where name like ?");
-			st.setString(1,"%"+keyword+"%");
-			ResultSet rs=st.executeQuery();
-
-			while(rs.next()){
-				out.println(rs.getInt("id"));
-				out.println(":");
-				out.println(rs.getString("name"));
-				out.println(":");
-				out.println(rs.getString("course"));
-				out.println("<br>");
-			}
-
-			st.close();
-			con.close();
+			request.getRequestDispatcher("allList.jsp")
+					.forward(request,response);
 		}catch(Exception e){
 			e.printStackTrace(out);
 		}
-		Page.footer(out);
 	}
 }

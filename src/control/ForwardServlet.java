@@ -14,8 +14,8 @@ public class ForwardServlet extends HttpServlet {
     protected void doGet(HttpServletRequest request, HttpServletResponse response)
             throws ServletException, IOException {
         String action = request.getParameter("action");
-        if ("all".equals(action)) {
-            RequestDispatcher dispatcher = request.getRequestDispatcher("all.jsp");
+        if ("allList".equals(action)) {
+            RequestDispatcher dispatcher = request.getRequestDispatcher("allList.jsp");
             dispatcher.forward(request, response);
         } else if ("insert".equals(action)) {
             RequestDispatcher dispatcher = request.getRequestDispatcher("insert.jsp");
